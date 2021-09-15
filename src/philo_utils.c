@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 20:05:50 by dcho              #+#    #+#             */
-/*   Updated: 2021/08/31 17:28:35 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/11 16:45:14 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int		philo_join(t_table *table)
 	i = 0;
 	while (i < table->op->num_philo)
 	{
-		if (ptrhead_join(table->thds[i++], NULL))
+		if (pthread_join(table->thds[i++], NULL))
 			return (ERROR);
 	}
+	return (OK);
 }

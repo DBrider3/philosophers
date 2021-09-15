@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 17:02:36 by dcho              #+#    #+#             */
-/*   Updated: 2021/08/31 17:25:26 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/11 20:37:12 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,27 @@ int		init(t_table *t)
 {
 	int		i;
 
-	// 테이블안의 철학자 수 만큼 철학자 구조체 할당 해주기
 	if (!(t->phs = malloc(sizeof(t_philo) * t->op->num_philo)))
 		return (ERROR);
-	// 테이블안의 철학자 수 만큼  철학자의 스레드 할당 해주기
 	if (!(t->thds = malloc(sizeof(pthread_t) * t->op->num_philo)))
 		return (ERROR);
-	// 포크 생성
 	if (!(t->fork = malloc(sizeof(t_fork) * t->op->num_philo)))
 		return (ERROR);
-
+	if (!(t->change = malloc(sizeof(t_change))))
+		return (ERROR);
+	if (!(t->monitor = malloc(sizeof(t_monitor))))
+		return (ERROR);
 	// 철학자 구조체 index, 포크 뮤텍스 초기화
 	i = 0;
 	while (i < t->op->num_philo)
 	{
 		t->phs[i].index = i + 1;
 		t->phs[i].last_eat = get_cur_time();
-		pthread_mutex_init(&t->fork[i++].mutex, NULL);
+		pthread_mutex_init(&t->fork[i].mutex, NULL);
+		i++;
 	}
 	init_mutex(t);
 	t->monitor->die_flag = OK;
+	t->start_time = get_cur_time();
+	return (OK);
 }

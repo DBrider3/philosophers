@@ -1,67 +1,36 @@
+#include <unistd.h>
+#include <sys/time.h>
 #include <stdio.h>
-#include <pthread.h>
+//long long current_timestamp() {
+//    struct timeval te;
 
-
-
-
-typedef enum		e_state
+//    gettimeofday(&te, NULL); //get current time
+//    long long milliseconds= te.tv_sec*1000LL + te.tv_usec/1000; //calculate milliseconds
+//    //printf("milliseconds: %lld\n", milliseconds);
+//    return milliseconds;
+//}
+long long	time_to_ms(struct timeval time)
 {
-	think,
-	eat,
-	slp,
-	die
-}					t_state;
-
-typedef struct      s_table
-{
-    int     num;
-    int     time;
-}                   t_table;
-
-
-void     *philo(void *arg)
-{
-    t_table *table = (t_table*)arg;
-
-    int i = 0;
-    while (i++ < 5)
-    {
-        printf("thread run\n");
-        table->num++;
-        table->time++;
-        printf("%d %d\n", table->num, table->time);
-    }
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-//int     *philo(t_table *table)
-//{
-//    //t_table *table = (t_table*)arg;
-
-//    int i = 0;
-//    while (i++ < 5)
-//    {
-//        printf("thread run\n");
-//        table->num++;
-//        table->time++;
-//        printf("%d %d\n", table->num, table->time);
-//    }
-//}
-
-int     main(void)
+long long			get_cur_time(void)
 {
-    t_state stat;
-    pthread_t thrd;
-    t_table    table;
-    int         thrd_id;
-    stat = think;
-    printf("%d\n", stat);
-    table.num = 0;
-    table.time = 0;
+	struct timeval time;
+	long			res;
 
-    thrd_id = pthread_create(&thrd, NULL, philo, &table);
-    pthread_join(thrd, NULL);
+	gettimeofday(&time, NULL);
+	res = time_to_ms(time);
+	return (res);
+}
 
+int		main(void)
+{
+    long long s,e;
 
-
-    return (0);
+    s = get_cur_time();
+    usleep(5000);
+    e = get_cur_time();
+	printf("%lldms\n", e - s);
+	return (0);
 }

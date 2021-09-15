@@ -6,25 +6,28 @@
 #    By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/03 15:58:55 by dcho              #+#    #+#              #
-#    Updated: 2021/08/31 21:36:26 by dcho             ###   ########.fr        #
+#    Updated: 2021/09/11 20:38:46 by dcho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 # CFLAGS = -I ./includes -I ./libft
-CFLAGS = -Wall -Wextra -Werror -I ./include
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -I ./include
 
 RM = rm -f
 
 NAME = philo
 
-SRC =	main.c			\
-		scan.c			\
-		init.c			\
-		free.c			\
-		time.c			\
-		philo_main.c	\
-		philo_utils.c	\
+SRC =	free.c\
+		init.c\
+		main.c\
+		mutex.c\
+		philo_main.c\
+		philo_utils.c\
+		print.c\
+		scan.c\
+		sleep.c\
+		time.c
 
 
 SRC_DIR = ./src/
