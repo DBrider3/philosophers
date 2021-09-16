@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 16:06:43 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/13 15:10:21 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/15 19:44:45 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct		s_fork
 
 typedef struct		s_monitor
 {
-	long long		time_cur;
+	long long		time_start;
 	long long		die_flag;
 }					t_monitor;
 
@@ -78,7 +78,6 @@ typedef struct		s_table
 	t_monitor		*monitor;
 	t_change		*change;
 	t_option		*op;
-	long long		start_time;
 }					t_table;
 
 
@@ -115,10 +114,6 @@ void		time_pass(t_philo *philo);
 
 /* free.c */
 void		free_final(t_table *t);
-
-
-
-
 
 
 #endif

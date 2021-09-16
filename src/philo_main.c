@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:05 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/13 14:40:21 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/15 19:45:54 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	philo_sleep(t_philo *philo)
 {
 
 	philo->state = slp;
-	//printf("sleep before\n");
 	print(philo);
 	time_pass(philo);
 }
@@ -57,9 +56,12 @@ void	*philo_main(void *arg)
 	while (shared_read(&philo->table->change->mutex_die,
 	&philo->table->monitor->die_flag))
 	{
+
+		//printf("%d\n", (int)(philo->table->monitor->time_start - get_cur_time()));
 		philo_eat(philo);
 		philo_sleep(philo);
 		philo_think(philo);
 	}
+	printf("1\n");
 	return (NULL);
 }

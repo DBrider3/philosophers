@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:05:07 by dcho              #+#    #+#             */
-/*   Updated: 2021/08/31 16:07:26 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/15 19:05:56 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		scan_main(int argc, char *argv[], t_option *op)
 	int		i;
 	int		result;
 
-	if (argc > 6)
+	if (argc > 6 || argc < 5)
 		return (ERROR);
 	init_argument(op);
 	i = 1;

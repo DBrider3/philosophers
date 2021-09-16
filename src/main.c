@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 16:02:53 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/13 15:09:47 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/15 19:17:46 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,21 @@ int			main(int argc, char *argv[])
 	t_option	op;
 
 	if (!(scan_main(argc, argv, &op)))
+	{
+		printf("Scan Error!\n");
 		return (ERROR);
+	}
 	table.op = &op;
 	if (!(init(&table)))
+	{
+		printf("Init Error!\n");
 		return (ERROR);
-	philo_create(&table);
+	}
+	if (!(philo_create(&table)))
+		printf("Create Error!\n");
 	monitoring(&table);
-	philo_join(&table);
+	if (!(philo_join(&table)))
+		printf("Join Error!\n");
 	free_final(&table);
 	return (0);
 }
