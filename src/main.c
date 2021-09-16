@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 16:02:53 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/15 19:17:46 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/16 21:31:24 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	monitoring(t_table *t)
 	long long	diff;
 	int			i;
 
+
 	i = 0;
 	while (1)
 	{
@@ -25,11 +26,14 @@ static void	monitoring(t_table *t)
 		shared_read(&t->change->mutex_lasteat, &t->phs[i].last_eat);
 		if (t->op->time_die <= diff)
 		{
-			t->phs[i].state = die;
-			print(&t->phs[i]);
-			shared_write(&t->change->mutex_die, &t->monitor->die_flag, ERROR);
+			printf("%d\n", t->phs[i].state);
+			print(&t->phs[i], die);
+			printf("%d\n", t->phs[i].state);
+			pthread_mutex_unlock(&t->change->print_key);
+			int j = 0;
+			while (j < t->op->num_philo)
+				pthread_mutex_unlock(&t->fork[j++].mutex);
 			break ;
-			//exit(0);
 		}
 		i++;
 		if (i == t->op->num_philo)

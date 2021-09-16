@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 16:06:43 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/15 19:44:45 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/16 21:30:57 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct		s_philo
 	t_fork			*left;
 	t_fork			*right;
 	t_table			*table;
+	long long		flag;
 }					t_philo;
 
 typedef struct		s_table
@@ -97,13 +98,14 @@ void		*philo_main(void *arg);
 void		philo_sleep(t_philo *philo);
 void		philo_eat(t_philo *philo);
 void		philo_think(t_philo *philo);
+void		philo_fork(t_philo *philo);
 
 /* mutex.c */
 long long	shared_read(pthread_mutex_t *mutex, long long *ptr);
 void		shared_write(pthread_mutex_t *mutex, long long *ptr, long long value);
 
 /* print.c */
-void		print(t_philo *philo);
+void		print(t_philo *philo, int state);
 
 /* time.c */
 long long	get_cur_time(void);

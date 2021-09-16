@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/03 15:58:55 by dcho              #+#    #+#              #
-#    Updated: 2021/09/11 20:38:46 by dcho             ###   ########.fr        #
+#    Updated: 2021/09/16 20:40:15 by dcho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 # CFLAGS = -I ./includes -I ./libft
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -I ./include
+# CFLAGS = -Wall -Wextra -Werror -g3 -I ./include
 
 RM = rm -f
 

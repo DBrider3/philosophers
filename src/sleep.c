@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sleep.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 15:15:56 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/13 14:40:38 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/16 20:59:12 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	my_usleep(useconds_t time, t_table *t)
 	while (1)
 	{
 		cur_time = get_cur_time();
-		if (!(t->monitor->die_flag) || cur_time - start_time >= time)
+		if (!(shared_read(&t->change->mutex_die, &t->monitor->die_flag))
+		|| cur_time - start_time >= time)
 			break ;
 	}
 }

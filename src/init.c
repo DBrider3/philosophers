@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 17:02:36 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/15 19:43:10 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/16 21:02:48 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,14 @@ int		init(t_table *t)
 	i = 0;
 	while (i < t->op->num_philo)
 	{
-		t->phs[i].index = i + 1;
+		t->phs[i].index = i;
+		t->phs[i].flag = 0;
 		t->phs[i].last_eat = get_cur_time();
 		pthread_mutex_init(&t->fork[i].mutex, NULL);
 		i++;
 	}
 	init_mutex(t);
-	t->monitor->die_flag = OK;
 	t->monitor->time_start = get_cur_time();
+	t->monitor->die_flag = OK;
 	return (OK);
 }
