@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 16:06:43 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/16 21:30:57 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 13:34:20 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct		s_change
 typedef struct		s_philo
 {
 	int				index;
-	t_state			state;
+	// t_state			state;
 	long long		last_eat;
 	t_fork			*left;
 	t_fork			*right;
@@ -112,7 +112,7 @@ long long	get_cur_time(void);
 
 /* sleep.c */
 void		my_usleep(useconds_t time, t_table *t);
-void		time_pass(t_philo *philo);
+void		time_pass(t_philo *philo, int state);
 
 /* free.c */
 void		free_final(t_table *t);

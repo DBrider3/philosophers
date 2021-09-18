@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 15:15:56 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/16 20:59:12 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 13:33:30 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	my_usleep(useconds_t time, t_table *t)
 	}
 }
 
-void	time_pass(t_philo *philo)
+void	time_pass(t_philo *philo, int state)
 {
 	int		delay;
 
 	delay = 0;
-	if (philo->state == eat)
+	if (state == eat)
 		delay = philo->table->op->time_eat;
-	else if (philo->state == slp)
+	else if (state == slp)
 		delay = philo->table->op->time_sleep;
 	my_usleep(delay, philo->table);
 }

@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 14:13:05 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/16 21:33:09 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 13:34:29 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	philo_fork(t_philo *philo)
 		philo->right = &philo->table->fork[fork_right];
 		pthread_mutex_lock(&philo->right->mutex);
 		philo->flag = 1;
-
 		print(philo, frk);
 
 }
@@ -32,7 +31,7 @@ void	philo_fork(t_philo *philo)
 void	philo_eat(t_philo *philo)
 {
 		print(philo, eat);
-		time_pass(philo);
+		time_pass(philo, eat);
 		shared_write(&philo->table->change->mutex_lasteat, &philo->last_eat, get_cur_time());
 		pthread_mutex_unlock(&philo->left->mutex);
 		pthread_mutex_unlock(&philo->right->mutex);
@@ -48,7 +47,7 @@ void	philo_think(t_philo *philo)
 void	philo_sleep(t_philo *philo)
 {
 		print(philo, slp);
-		time_pass(philo);
+		time_pass(philo, slp);
 }
 
 void	*philo_main(void *arg)

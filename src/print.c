@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:00:09 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/16 21:31:49 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 13:46:44 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@ void	print(t_philo *philo, int state)
 	long long	time;
 
 	time = get_cur_time() - philo->table->monitor->time_start;
-	if (shared_read(&philo->table->change->mutex_die,&philo->table->monitor->die_flag))
+	pthread_mutex_lock(&philo->table->change->print_key);
+	if ((shared_read(&philo->table->change->mutex_die,&philo->table->monitor->die_flag)))
 	{
-		pthread_mutex_lock(&philo->table->change->print_key);
-		if ((shared_read(&philo->table->change->mutex_die,&philo->table->monitor->die_flag)))
-		{
-			if (state == think)
-			printf("%d %d is thinking\n", (int)time, philo->index + 1);
+		if (state == think)
+		printf("%d %d is thinking\n", (int)time, philo->index + 1);
 		else if (state == eat)
 			printf("%d %d is eating\n", (int)time, philo->index + 1);
 		else if (state == slp)
@@ -35,7 +33,7 @@ void	print(t_philo *philo, int state)
 		}
 		else
 			printf("%d %d has taken a fork \n", (int)time, philo->index + 1);
-		}
-		pthread_mutex_unlock(&philo->table->change->print_key);
 	}
+	pthread_mutex_unlock(&philo->table->change->print_key);
+
 }
