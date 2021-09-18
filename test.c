@@ -37,8 +37,17 @@
 
 #include <stdio.h>
 
-int	main(int argc, char **argv)
+long long a(long long b)
 {
-	int i = 0;
-	while (i++ < 10000000);
+	return b;
+}
+int	main(void)
+{
+	int		e;
+
+
+	e = 5;
+	printf("%d\n", e);
+
+	printf("%lld\n", a(e));
 }

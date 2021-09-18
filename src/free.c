@@ -6,12 +6,11 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 20:19:29 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/16 21:18:47 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 20:17:26 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 static void	free_mutex(t_table *t)
 {
@@ -31,12 +30,18 @@ static void	free_mutex(t_table *t)
 	pthread_mutex_destroy(&t->change->mutex_lasteat);
 }
 
-void		free_final(t_table *t)
+void	free_final(t_table *t)
 {
-	free_mutex(t);
-	free(t->phs);
-	free(t->thds);
-	free(t->fork);
-	free(t->change);
-	free(t->monitor);
+	if (t->fork != NULL)
+		free_mutex(t);
+	if (t->phs != NULL)
+		free(t->phs);
+	if (t->thds != NULL)
+		free(t->thds);
+	if (t->fork != NULL)
+		free(t->fork);
+	if (t->change != NULL)
+		free(t->change);
+	if (t->monitor != NULL)
+		free(t->monitor);
 }

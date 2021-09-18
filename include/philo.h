@@ -6,25 +6,25 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 16:06:43 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/18 13:34:20 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 16:40:01 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <unistd.h>
-#include <sys/time.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <pthread.h>
 
 # define ERROR 0
 # define OK 1
 
-typedef struct s_table t_table;
+typedef struct s_table	t_table;
 
-typedef struct		s_option
+typedef struct s_option
 {
 	int				num_philo;
 	int				time_die;
@@ -33,7 +33,7 @@ typedef struct		s_option
 	int				num_must_eat;
 }					t_option;
 
-typedef enum		e_state
+typedef enum e_state
 {
 	think,
 	eat,
@@ -42,36 +42,37 @@ typedef enum		e_state
 	frk
 }					t_state;
 
-typedef struct		s_fork
+typedef struct s_fork
 {
-	pthread_mutex_t mutex;
+	pthread_mutex_t	mutex;
 }					t_fork;
 
-typedef struct		s_monitor
+typedef struct s_monitor
 {
 	long long		time_start;
 	long long		die_flag;
 }					t_monitor;
 
-typedef struct		s_change
+typedef struct s_change
 {
 	pthread_mutex_t	print_key;
-	pthread_mutex_t mutex_die;
-	pthread_mutex_t mutex_lasteat;
+	pthread_mutex_t	mutex_die;
+	pthread_mutex_t	mutex_lasteat;
+	// pthread_mutex_t mutex_eatcount;
 }					t_change;
 
-typedef struct		s_philo
+typedef struct s_philo
 {
 	int				index;
-	// t_state			state;
 	long long		last_eat;
 	t_fork			*left;
 	t_fork			*right;
 	t_table			*table;
 	long long		flag;
+	long long		eat_count;
 }					t_philo;
 
-typedef struct		s_table
+typedef struct s_table
 {
 	t_philo			*phs;
 	t_fork			*fork;
@@ -80,7 +81,6 @@ typedef struct		s_table
 	t_change		*change;
 	t_option		*op;
 }					t_table;
-
 
 /* init.c */
 int			init(t_table *t);
@@ -102,7 +102,8 @@ void		philo_fork(t_philo *philo);
 
 /* mutex.c */
 long long	shared_read(pthread_mutex_t *mutex, long long *ptr);
-void		shared_write(pthread_mutex_t *mutex, long long *ptr, long long value);
+void		shared_write(pthread_mutex_t *mutex, \
+						long long *ptr, long long value);
 
 /* print.c */
 void		print(t_philo *philo, int state);
@@ -116,6 +117,5 @@ void		time_pass(t_philo *philo, int state);
 
 /* free.c */
 void		free_final(t_table *t);
-
 
 #endif

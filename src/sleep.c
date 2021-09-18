@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 15:15:56 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/18 13:33:30 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 19:13:30 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	my_usleep(useconds_t time, t_table *t)
 	start_time = get_cur_time();
 	while (1)
 	{
+		usleep(50);
 		cur_time = get_cur_time();
-		if (!(shared_read(&t->change->mutex_die, &t->monitor->die_flag))
+		if (!(shared_read(&t->change->mutex_die, &t->monitor->die_flag)) \
 		|| cur_time - start_time >= time)
 			break ;
 	}

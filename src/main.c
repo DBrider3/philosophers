@@ -6,30 +6,38 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 16:02:53 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/18 13:43:31 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 20:18:11 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	fork_unlock(t_table *t)
+{
+	int			i;
+
+	i = 0;
+	while (i < t->op->num_philo)
+		pthread_mutex_unlock(&t->fork[i++].mutex);
+}
 
 static void	monitoring(t_table *t)
 {
 	long long	diff;
 	int			i;
 
-
 	i = 0;
 	while (1)
 	{
-
-		diff = get_cur_time() -
+		diff = get_cur_time() - \
 		shared_read(&t->change->mutex_lasteat, &t->phs[i].last_eat);
+		if (t->op->num_must_eat != -1)
+			if (!(shared_read(&t->change->mutex_die, &t->monitor->die_flag)))
+				break ;
 		if (t->op->time_die <= diff)
 		{
 			print(&t->phs[i], die);
-			int j = 0;
-			while (j < t->op->num_philo)
-				pthread_mutex_unlock(&t->fork[j++].mutex);
+			fork_unlock(t);
 			break ;
 		}
 		i++;
@@ -38,7 +46,31 @@ static void	monitoring(t_table *t)
 	}
 }
 
-int			main(int argc, char *argv[])
+static int	philo_core(t_table *t)
+{
+	if (!(init(t)))
+	{
+		printf("Malloc Error!\n");
+		free_final(t);
+		return (ERROR);
+	}
+	if (!(philo_create(t)))
+	{
+		printf("Thread Create Error!\n");
+		free_final(t);
+		return (ERROR);
+	}
+	monitoring(t);
+	if (!(philo_join(t)))
+	{
+		printf("Thread Join Error!\n");
+		free_final(t);
+		return (ERROR);
+	}
+	return (OK);
+}
+
+int	main(int argc, char *argv[])
 {
 	t_table		table;
 	t_option	op;
@@ -49,16 +81,8 @@ int			main(int argc, char *argv[])
 		return (ERROR);
 	}
 	table.op = &op;
-	if (!(init(&table)))
-	{
-		printf("Init Error!\n");
+	if (!(philo_core(&table)))
 		return (ERROR);
-	}
-	if (!(philo_create(&table)))
-		printf("Create Error!\n");
-	monitoring(&table);
-	if (!(philo_join(&table)))
-		printf("Join Error!\n");
 	free_final(&table);
 	return (0);
 }

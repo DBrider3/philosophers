@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 17:15:48 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/16 19:23:43 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 15:44:59 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ long long	shared_read(pthread_mutex_t *mutex, long long *ptr)
 	return (result);
 }
 
-void		shared_write(pthread_mutex_t *mutex, long long *ptr, long long value)
+void	shared_write(pthread_mutex_t *mutex, long long *ptr, long long value)
 {
 	pthread_mutex_lock(mutex);
 	*ptr = value;

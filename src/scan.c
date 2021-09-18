@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   scan.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcho <dcho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:05:07 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/15 19:05:56 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 14:47:45 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static char				*ft_strchr(const char *s, int c)
+static char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{
 		if (*s == c)
-			return ((char*)s);
+			return ((char *)s);
 		s++;
 	}
 	if (c == 0)
-		return ((char*)s);
+		return ((char *)s);
 	return (0);
 }
 
-static int				ft_isdigit(int c)
+static int	ft_isdigit(int c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-static long long		ft_atoi(const char *str)
+static long long	ft_atoi(const char *str)
 {
 	long long	result;
 	int			minus_chk;
@@ -41,8 +41,8 @@ static long long		ft_atoi(const char *str)
 		str++;
 	if (*str == '-' || *str == '+')
 	{
-		*str == '-' ? minus_chk *= -1 : minus_chk;
-		str++;
+		if (*str++ == '-' )
+			minus_chk *= -1;
 	}
 	while (*str)
 	{
@@ -59,16 +59,17 @@ static long long		ft_atoi(const char *str)
 	return (result * minus_chk);
 }
 
-static int		argument_check(char *argv)
+static int	argument_check(char *argv)
 {
 	long long	num;
 
-	if (!(num = ft_atoi(argv)) || num >= 2147483647 || num < 1)
+	num = ft_atoi(argv);
+	if (!(num) || num >= 2147483647 || num < 1)
 		return (ERROR);
 	return ((int)num);
 }
 
-int		scan_main(int argc, char *argv[], t_option *op)
+int	scan_main(int argc, char *argv[], t_option *op)
 {
 	int		i;
 	int		result;
@@ -79,7 +80,8 @@ int		scan_main(int argc, char *argv[], t_option *op)
 	i = 1;
 	while (i < argc)
 	{
-		if (!(result = argument_check(argv[i])))
+		result = argument_check(argv[i]);
+		if (!(result))
 			return (ERROR);
 		if (i == 1)
 			op->num_philo = result;

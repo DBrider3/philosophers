@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 20:05:50 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/16 20:40:50 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 15:42:34 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static void	wait_create(t_philo *p)
 {
-	while (p->flag == 0);
+	while (p->flag == 0)
+		;
 }
 
-int		philo_create(t_table *table)
+int	philo_create(t_table *table)
 {
 	int		i;
 
@@ -34,7 +35,7 @@ int		philo_create(t_table *table)
 	return (OK);
 }
 
-int		philo_join(t_table *table)
+int	philo_join(t_table *table)
 {
 	int		i;
 

@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 17:02:36 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/16 21:02:48 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 20:17:39 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,32 @@ static void	init_mutex(t_table *t)
 	pthread_mutex_init(&t->change->mutex_lasteat, NULL);
 }
 
-int		init(t_table *t)
+static void	init_malloc(t_table *t)
+{
+	t->phs = NULL;
+	t->thds = NULL;
+	t->fork = NULL;
+	t->change = NULL;
+	t->monitor = NULL;
+	t->phs = malloc(sizeof(t_philo) * t->op->num_philo);
+	t->thds = malloc(sizeof(pthread_t) * t->op->num_philo);
+	t->fork = malloc(sizeof(t_fork) * t->op->num_philo);
+	t->change = malloc(sizeof(t_change));
+	t->monitor = malloc(sizeof(t_monitor));
+}
+
+int	init(t_table *t)
 {
 	int		i;
 
-	if (!(t->phs = malloc(sizeof(t_philo) * t->op->num_philo)))
+	init_malloc(t);
+	if (!(t->phs || t->thds || t->fork || t->change || t->monitor))
 		return (ERROR);
-	if (!(t->thds = malloc(sizeof(pthread_t) * t->op->num_philo)))
-		return (ERROR);
-	if (!(t->fork = malloc(sizeof(t_fork) * t->op->num_philo)))
-		return (ERROR);
-	if (!(t->change = malloc(sizeof(t_change))))
-		return (ERROR);
-	if (!(t->monitor = malloc(sizeof(t_monitor))))
-		return (ERROR);
-	// 철학자 구조체 index, 포크 뮤텍스 초기화
 	i = 0;
 	while (i < t->op->num_philo)
 	{
 		t->phs[i].index = i;
+		t->phs[i].eat_count = 0;
 		t->phs[i].flag = 0;
 		t->phs[i].last_eat = get_cur_time();
 		pthread_mutex_init(&t->fork[i].mutex, NULL);
