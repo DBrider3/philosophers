@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 16:06:43 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/18 16:40:01 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/18 20:28:12 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_change
 	pthread_mutex_t	print_key;
 	pthread_mutex_t	mutex_die;
 	pthread_mutex_t	mutex_lasteat;
-	// pthread_mutex_t mutex_eatcount;
 }					t_change;
 
 typedef struct s_philo
