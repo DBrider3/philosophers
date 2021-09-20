@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 20:05:50 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/18 15:42:34 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/20 19:56:11 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	philo_create(t_table *table)
 		table->phs[i].table = table;
 		if (pthread_create(&table->thds[i], NULL, philo_main, &table->phs[i]))
 			return (ERROR);
-		if (i % 2 == 0)
+		if (i % 2 == 0 && table->op->num_philo != 1)
 			wait_create(&table->phs[i]);
 		i++;
 	}
