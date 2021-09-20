@@ -6,7 +6,7 @@
 /*   By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 16:02:53 by dcho              #+#    #+#             */
-/*   Updated: 2021/09/20 19:55:41 by dcho             ###   ########.fr       */
+/*   Updated: 2021/09/20 20:09:03 by dcho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,5 @@ int	main(int argc, char *argv[])
 	if (!(philo_core(&table)))
 		return (ERROR);
 	free_final(&table);
-	/*
-	system("leaks philo");
-	*/
 	return (0);
 }

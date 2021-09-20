@@ -6,14 +6,12 @@
 #    By: dcho <dcho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/03 15:58:55 by dcho              #+#    #+#              #
-#    Updated: 2021/09/20 19:41:58 by dcho             ###   ########.fr        #
+#    Updated: 2021/09/20 20:09:29 by dcho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-# CFLAGS = -I ./includes -I ./libft
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -I ./include
-# CFLAGS = -Wall -Wextra -Werror -I ./include
+CFLAGS = -Wall -Wextra -Werror -I ./include
 
 RM = rm -f
 
